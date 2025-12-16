@@ -1,0 +1,62 @@
+name: Publish Helm charts to GitHub Pages
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - "charts/**"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: v3.15.4
+
+      - name: Lint charts
+        run: |
+          set -e
+          for d in charts/*; do
+            [ -d "$d" ] || continue
+            helm lint "$d"
+          done
+
+      - name: Package charts into docs/
+        run: |
+          set -e
+          mkdir -p docs
+          rm -f docs/*.tgz
+          for d in charts/*; do
+            [ -d "$d" ] || continue
+            helm package "$d" -d docs
+          done
+
+      - name: Generate index.yaml
+        run: |
+          set -e
+          REPO_URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
+          helm repo index docs --url "$REPO_URL"
+
+      - name: Commit docs/
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "Publish Helm charts"
+          git push

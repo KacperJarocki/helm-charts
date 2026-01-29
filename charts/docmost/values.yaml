@@ -1,7 +1,7 @@
-database:
+postgresql:
   enabled: true
 
-redis:
+valkey:
   enabled: true
 
 replicaCount: 1

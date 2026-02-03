@@ -1,14 +1,34 @@
 apiVersion: v1
 entries:
+  docmost:
+  - apiVersion: v2
+    appVersion: 0.24.1
+    created: "2026-02-03T18:12:10.098178651Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 15.5.21
+    - condition: valkey.enabled
+      name: valkey
+      repository: https://valkey.io/valkey-helm/
+      version: 0.9.3
+    description: A Helm chart for Kubernetes
+    digest: 5cec2f3d3b5d273b71919d8765213298738753fcfac2fcbadefc7222bf18f84e
+    name: docmost
+    type: application
+    urls:
+    - https://KacperJarocki.github.io/helm-charts/docmost-0.1.0.tgz
+    version: 0.1.0
   myapp:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2025-12-16T18:29:40.319699462Z"
+    created: "2026-02-03T18:12:10.09864734Z"
     description: A Helm chart for Kubernetes
-    digest: 48cab702e7577a9c5401bc86096778cc30e7db16d586578cce63ebe686d9e486
+    digest: f132a42fe57426dcc4773b8d134e4b7d6c546e90c336c0aab9234349e4400c5d
     name: myapp
     type: application
     urls:
     - https://KacperJarocki.github.io/helm-charts/myapp-0.1.0.tgz
     version: 0.1.0
-generated: "2025-12-16T18:29:40.319077339Z"
+generated: "2026-02-03T18:12:10.091073051Z"

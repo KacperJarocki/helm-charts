@@ -60,3 +60,32 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{- define "docmost.appUrl" -}}
+{{- $default := "http://localhost:3000" -}}
+
+{{- if .Values.ingress.enabled -}}
+  {{- $host := "" -}}
+  {{- if and .Values.ingress.hosts (gt (len .Values.ingress.hosts) 0) -}}
+    {{- $h0 := index .Values.ingress.hosts 0 -}}
+    {{- if and $h0 (hasKey $h0 "host") -}}
+      {{- $host = (default "" $h0.host) -}}
+    {{- end -}}
+  {{- end -}}
+
+  {{- if ne $host "" -}}
+    {{- $scheme := "http" -}}
+    {{- if and .Values.ingress.tls (gt (len .Values.ingress.tls) 0) -}}
+      {{- $tls0 := index .Values.ingress.tls 0 -}}
+      {{- if and $tls0 (hasKey $tls0 "secretName") (ne (default "" $tls0.secretName) "") -}}
+        {{- $scheme = "https" -}}
+      {{- end -}}
+    {{- end -}}
+    {{- printf "%s://%s" $scheme $host -}}
+  {{- else -}}
+    {{- $default -}}
+  {{- end -}}
+{{- else -}}
+  {{- $default -}}
+{{- end -}}
+{{- end -}}

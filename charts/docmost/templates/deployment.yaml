@@ -66,7 +66,7 @@ spec:
           - name: APP_SECRET 
             value: "9f02d6efce25c90a18bf89f9dd17e5672aeab62a91fbfae1198af0b3c39af65c"
           - name: DATABASE_URL 
-            value: "postgresql://docmost:strong@docmost-postgresql:5432/docmost?schema=public"
+            value: "postgresql://{{ .Values.postgresql.auth.username }}:{{ .Values.postgresql.auth.password }}@docmost-postgresql:5432/{{ .Values.postgresql.auth.database }}?schema=public"
           - name: REDIS_URL 
             value: "redis://docmost-valkey:6379"
       {{- with .Values.volumes }}

@@ -62,13 +62,13 @@ spec:
           {{- end }}
           env:
           - name: APP_URL 
-            value: "http://localhost:3000"
+            value: {{ include "docmost.appUrl" . | quote }}
           - name: APP_SECRET 
             value: "9f02d6efce25c90a18bf89f9dd17e5672aeab62a91fbfae1198af0b3c39af65c"
           - name: DATABASE_URL 
-            value: "postgresql://{{ .Values.postgresql.auth.username }}:{{ .Values.postgresql.auth.password }}@docmost-postgresql:5432/{{ .Values.postgresql.auth.database }}?schema=public"
+            value: "postgresql://{{ .Values.postgresql.auth.username }}:{{ .Values.postgresql.auth.password }}@{{ .Release.Name }}-postgresql:5432/{{ .Values.postgresql.auth.database }}?schema=public"
           - name: REDIS_URL 
-            value: "redis://docmost-valkey:6379"
+            value: "redis://{{ .Release.Name }}-valkey:6379"
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}

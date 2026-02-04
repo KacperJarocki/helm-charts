@@ -2,8 +2,8 @@ apiVersion: v1
 entries:
   docmost:
   - apiVersion: v2
-    appVersion: 0.24.1
-    created: "2026-02-03T18:42:44.035538512Z"
+    appVersion: 0.25.0
+    created: "2026-02-04T12:06:41.751750093Z"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -14,21 +14,21 @@ entries:
       repository: https://valkey.io/valkey-helm/
       version: 0.9.3
     description: A Helm chart for Kubernetes
-    digest: 5ec8165bd2e440467e3c40361e7fc6015c0d461d05662e6eef3870d0008512c3
+    digest: 934abd2d9141a34bf1d8c0f3ca1ad7d42b1a4758b9d13ca2a93ce80b17ace69a
     name: docmost
     type: application
     urls:
-    - https://KacperJarocki.github.io/helm-charts/docmost-0.1.1.tgz
-    version: 0.1.1
+    - https://KacperJarocki.github.io/helm-charts/docmost-0.1.2.tgz
+    version: 0.1.2
   myapp:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2026-02-03T18:42:44.036022035Z"
+    created: "2026-02-04T12:06:41.752188345Z"
     description: A Helm chart for Kubernetes
-    digest: 3b99817e9b87100e2841272bfdcc523546738af75ec0f078443e2a870039d21e
+    digest: 28426c0f785395f7ad9c452e94f525a0c039838f2c18fffdc60d592933ec9470
     name: myapp
     type: application
     urls:
     - https://KacperJarocki.github.io/helm-charts/myapp-0.1.0.tgz
     version: 0.1.0
-generated: "2026-02-03T18:42:44.028982733Z"
+generated: "2026-02-04T12:06:41.745165244Z"

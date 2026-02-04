@@ -56,9 +56,14 @@ spec:
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- with .Values.volumeMounts }}
           volumeMounts:
+          {{- with .Values.volumeMounts }}
             {{- toYaml . | nindent 12 }}
+          {{- end }}
+
+          {{- if .Values.persistence.enabled }}
+            - name: data
+              mountPath: /app/data
           {{- end }}
           env:
           - name: APP_URL 
@@ -69,9 +74,14 @@ spec:
             value: "postgresql://{{ .Values.postgresql.auth.username }}:{{ .Values.postgresql.auth.password }}@{{ .Release.Name }}-postgresql:5432/{{ .Values.postgresql.auth.database }}?schema=public"
           - name: REDIS_URL 
             value: "redis://{{ .Release.Name }}-valkey:6379"
-      {{- with .Values.volumes }}
       volumes:
+      {{- with .Values.volumes}}
         {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- if .Values.persistence.enabled }}
+        - name: data
+          persistantVolumeClaim:
+            claimName: {{ include "docmost.fullname" . }}
       {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
